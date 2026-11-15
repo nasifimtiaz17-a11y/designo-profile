@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DESIGNO by Navana — Company Profile</title>
+<meta name="description" content="DESIGNO by Navana company profile: residential interiors, common area design and restaurant projects.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="DESIGNO by Navana — Company Profile">
+<meta property="og:description" content="Residential interiors, common area design and restaurant projects.">
+<meta property="og:image" content="https://nasifimtiaz17-a11y.github.io/designo-profile/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://nasifimtiaz17-a11y.github.io/designo-profile/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" as="image" href="pages/01.webp">
+<link rel="preload" as="image" href="pages/02.webp">
+<link rel="stylesheet" href="css/stPageFlip.css">
+<style>
+@font-face { font-family: 'Manrope'; font-weight: 400; font-display: swap; src: url('fonts/manrope-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-weight: 500; font-display: swap; src: url('fonts/manrope-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-weight: 600; font-display: swap; src: url('fonts/manrope-latin-600-normal.woff2') format('woff2'); }
+
+:root {
+  --ink: #000;
+  --paper-edge: #262626;
+  --line: rgba(255, 255, 255, .16);
+  --text: rgba(255, 255, 255, .92);
+  --muted: rgba(255, 255, 255, .6);
+  --bar: 64px;
+  --foot: 58px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--ink); color: var(--text); font-family: 'Manrope', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow: hidden; }
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 80% at 0% 0%, rgba(255,255,255,.075), rgba(255,255,255,.02) 45%, transparent 70%),
+    radial-gradient(ellipse 55% 50% at 50% 52%, rgba(255,255,255,.05), transparent 72%);
+}
+button, a { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- top bar ---------- */
+.bar {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--bar); z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 max(28px, env(safe-area-inset-right)) 0 max(28px, env(safe-area-inset-left));
+}
+.bar .brand { display: flex; align-items: baseline; gap: 12px; text-decoration: none; }
+.bar .brand img { height: 19px; width: auto; display: block; transform: translateY(2px); }
+.bar .brand span { font-size: 13px; color: var(--muted); letter-spacing: .01em; }
+.tools { display: flex; align-items: center; gap: 6px; }
+.count { font-size: 14px; font-weight: 500; letter-spacing: .06em; color: var(--text); margin-right: 14px; font-variant-numeric: tabular-nums; }
+.count i { font-style: normal; color: var(--muted); }
+.icon-btn {
+  width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%;
+  color: rgba(255,255,255,.72); transition: color .2s, background-color .2s;
+}
+.icon-btn:hover { color: #fff; background: rgba(255,255,255,.08); }
+.icon-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.icon-btn[hidden] { display: none; }
+.dl { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px 0 12px; margin-left: 8px; border: 1px solid var(--line); border-radius: 19px; text-decoration: none; font-size: 13px; font-weight: 500; color: rgba(255,255,255,.85); transition: border-color .2s, background-color .2s; }
+.dl:hover { border-color: rgba(255,255,255,.4); background: rgba(255,255,255,.05); }
+.dl svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- stage + book ---------- */
+.stage { position: fixed; left: 0; right: 0; top: var(--bar); bottom: var(--foot); display: grid; place-items: center; touch-action: pan-y pinch-zoom; user-select: none; -webkit-user-select: none; }
+.book-wrap { position: relative; cursor: pointer; }
+.book-wrap::before { /* soft floor shadow */
+  content: ''; position: absolute; left: 4%; right: 4%; bottom: -26px; height: 40px; border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,.95), transparent 70%); filter: blur(6px); z-index: -1;
+}
+.edges { position: absolute; top: 3px; bottom: 3px; pointer-events: none; z-index: -1; border-radius: 0 2px 2px 0;
+  background: repeating-linear-gradient(90deg, #2f2f2f 0 1px, #121212 1px 2px); transition: width .5s ease; }
+.edges.r { left: 100%; }
+.edges.l { right: 100%; transform: scaleX(-1); }
+.book { box-shadow: 0 30px 70px -18px rgba(0,0,0,1), 0 0 0 1px rgba(255,255,255,.07); }
+.page { background: #000; overflow: hidden; }
+.page img { width: 100%; height: 100%; display: block; object-fit: cover; pointer-events: none; -webkit-user-drag: none; }
+.spine { position: absolute; top: 0; bottom: 0; pointer-events: none; z-index: 30; }
+.spine.single { left: 0; width: 3%; background: linear-gradient(90deg, rgba(0,0,0,.42), rgba(0,0,0,.12) 45%, rgba(0,0,0,0)); }
+.spine.spread { left: 50%; width: 7%; transform: translateX(-50%); background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.34) 47%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.34) 53%, rgba(0,0,0,0)); }
+.spine[hidden] { display: none; }
+
+.nav { position: fixed; top: calc(var(--bar) + (100% - var(--bar) - var(--foot)) / 2); transform: translateY(-50%); z-index: 15;
+  width: 54px; height: 54px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center;
+  color: rgba(255,255,255,.8); transition: border-color .2s, background-color .2s, opacity .3s; }
+.nav:hover { border-color: rgba(255,255,255,.45); background: rgba(255,255,255,.06); }
+.nav svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.nav.prev { left: 32px; } .nav.next { right: 32px; }
+.nav:disabled { opacity: .18; cursor: default; }
+
+/* ---------- footer ---------- */
+.foot { position: fixed; left: 0; right: 0; bottom: 0; height: var(--foot); z-index: 10; display: grid; place-items: center; padding-bottom: env(safe-area-inset-bottom); }
+.hint { font-size: 14px; color: var(--muted); letter-spacing: .01em; transition: opacity .6s; display: flex; align-items: center; gap: 10px; }
+.hint kbd { font: 500 12px 'Manrope', sans-serif; border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; color: rgba(255,255,255,.8); }
+.hint.gone { opacity: 0; }
+.progress { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgba(255,255,255,.08); }
+.progress i { display: block; height: 100%; width: 0; background: #fff; transition: width .6s ease; }
+.rotate { display: none; }
+
+/* ---------- page grid ---------- */
+.grid { position: fixed; inset: 0; z-index: 40; background: rgba(0,0,0,.94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  overflow-y: auto; padding: 88px max(32px, 5vw) 48px; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
+.grid.open { opacity: 1; visibility: visible; }
+.grid h2 { font-weight: 500; font-size: 20px; margin: 0 0 28px; letter-spacing: .01em; }
+.grid .close { position: fixed; top: 12px; right: max(20px, 2vw); }
+.grid ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 28px 22px; }
+.grid li button { display: block; width: 100%; text-align: left; }
+.grid li img { width: 100%; aspect-ratio: 16 / 9; display: block; border-radius: 2px; outline: 1px solid rgba(255,255,255,.1); transition: outline-color .2s, transform .25s; }
+.grid li button:hover img { outline-color: rgba(255,255,255,.5); transform: translateY(-2px); }
+.grid li.current img { outline: 2px solid #fff; }
+.grid li span { display: block; margin-top: 10px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ---------- loader ---------- */
+.loader { position: fixed; inset: 0; z-index: 60; background: #000; display: grid; place-items: center; transition: opacity .7s ease, visibility .7s; }
+.loader.done { opacity: 0; visibility: hidden; }
+.loader div { display: grid; justify-items: center; gap: 26px; }
+.loader img { width: 220px; height: auto; }
+.loader b { display: block; width: 160px; height: 1px; background: rgba(255,255,255,.15); overflow: hidden; }
+.loader b i { display: block; height: 100%; width: 0; background: #fff; transition: width .35s ease; }
+
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- small screens ---------- */
+@media (max-width: 760px) {
+  :root { --bar: 54px; --foot: 50px; }
+  .bar { padding: 0 max(14px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); }
+  .bar .brand img { height: 15px; }
+  .bar .brand span, .dl span, .nav { display: none; }
+  .count { font-size: 13px; margin-right: 4px; }
+  .icon-btn { width: 38px; height: 38px; }
+  .dl { width: 38px; padding: 0; justify-content: center; border: 0; margin-left: 0; }
+  .hint { font-size: 13px; }
+}
+@media (max-width: 760px) and (orientation: portrait) {
+  .rotate { display: flex; position: fixed; left: 0; right: 0; justify-content: center; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); z-index: 12; }
+  .rotate svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+}
+@media (max-height: 480px) and (orientation: landscape) {
+  :root { --bar: 46px; --foot: 34px; }
+  .bar .brand img { height: 14px; }
+  .hint { font-size: 12px; }
+  .nav { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader" role="status" aria-label="Loading the profile">
+  <div><img src="logo.png" alt="DESIGNO"><b><i id="loadbar"></i></b></div>
+</div>
+
+<header class="bar">
+  <a class="brand" href="#1" aria-label="DESIGNO by Navana, back to cover"><img src="logo.png" alt="DESIGNO"><span>by Navana</span></a>
+  <div class="tools">
+    <div class="count" aria-hidden="true"><span id="cur">01</span> <i>/ <span id="total">24</span></i></div>
+    <button class="icon-btn" id="btnGrid" type="button" aria-label="Show all pages" title="All pages">
+      <svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="7" height="6" rx="1"/><rect x="13.5" y="4.5" width="7" height="6" rx="1"/><rect x="3.5" y="13.5" width="7" height="6" rx="1"/><rect x="13.5" y="13.5" width="7" height="6" rx="1"/></svg>
+    </button>
+    <button class="icon-btn" id="btnView" type="button" aria-label="Open book view" title="Open book view" hidden>
+      <svg viewBox="0 0 24 24" id="icoView"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5c-3.5-.5-6.5 0-8.5 1.5z"/><path d="M12 6.5v13"/></svg>
+    </button>
+    <button class="icon-btn" id="btnFull" type="button" aria-label="Full screen" title="Full screen" hidden>
+      <svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+    </button>
+    <a class="dl" href="DESIGNO_Company_Profile.pdf" download aria-label="Download the PDF" title="Download PDF">
+      <svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg><span>PDF</span>
+    </a>
+  </div>
+</header>
+
+<main class="stage" id="stage">
+  <div class="book-wrap" id="wrap">
+    <div class="edges l" id="edgeL"></div>
+    <div class="edges r" id="edgeR"></div>
+    <div class="spine single" id="spine"></div>
+  </div>
+</main>
+
+<button class="nav prev" id="prev" type="button" aria-label="Previous page"><svg viewBox="0 0 24 24"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg></button>
+<button class="nav next" id="next" type="button" aria-label="Next page"><svg viewBox="0 0 24 24"><path d="M9.5 5.5 16 12l-6.5 6.5"/></svg></button>
+
+<div class="rotate" id="rotate"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M20.5 9.5a8 8 0 0 1 0 5M3.5 9.5a8 8 0 0 0 0 5"/></svg>Rotate your phone for a larger view</div>
+
+<footer class="foot">
+  <div class="hint" id="hint"></div>
+  <div class="progress"><i id="bar"></i></div>
+</footer>
+
+<section class="grid" id="grid" aria-label="All pages" aria-hidden="true">
+  <button class="icon-btn close" id="btnClose" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <h2>All pages</h2>
+  <ol id="thumbs"></ol>
+</section>
+
+<div class="sr" aria-live="polite" id="live"></div>
+
+<script src="js/page-flip.browser.js"></script>
+<script>
+(function () {
+  'use strict';
+  var N = 24;                       // 23 profile pages + back cover
+  var RATIO = 16 / 9;
+  var srcs = [];
+  for (var i = 1; i <= N; i++) srcs.push('pages/' + (i < 10 ? '0' : '') + i + '.webp');
+
+  var stage = document.getElementById('stage');
+  var wrap = document.getElementById('wrap');
+  var spine = document.getElementById('spine');
+  var edgeL = document.getElementById('edgeL');
+  var edgeR = document.getElementById('edgeR');
+  var curEl = document.getElementById('cur');
+  var barEl = document.getElementById('bar');
+  var hintEl = document.getElementById('hint');
+  var live = document.getElementById('live');
+  var btnPrev = document.getElementById('prev');
+  var btnNext = document.getElementById('next');
+  var btnView = document.getElementById('btnView');
+  var btnFull = document.getElementById('btnFull');
+  var grid = document.getElementById('grid');
+  var rotateEl = document.getElementById('rotate');
+  document.getElementById('total').textContent = String(N);
+
+  var touch = window.matchMedia('(hover: none)').matches;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  hintEl.innerHTML = touch
+    ? 'Tap or swipe to turn the page'
+    : 'Click the page to turn it &nbsp;<kbd>&larr;</kbd><kbd>&rarr;</kbd>';
+
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+
+  var mode = store('designo-view') === 'spread' ? 'spread' : 'single';
+  var pf = null, bookEl = null, current = 0, flipping = false, built = { w: 0, h: 0, mode: '' };
+
+  function spreadAllowed() { return window.innerWidth >= 1100 && window.innerWidth > window.innerHeight; }
+
+  function pageFromHash() {
+    var n = parseInt((location.hash || '').replace('#', ''), 10);
+    return (n >= 1 && n <= N) ? n - 1 : 0;
+  }
+
+  function size(m) {
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var cs = getComputedStyle(document.documentElement);
+    var bar = parseFloat(cs.getPropertyValue('--bar')) || 64;
+    var foot = parseFloat(cs.getPropertyValue('--foot')) || 58;
+    var small = vw <= 760 || vh <= 480;
+    var padX = small ? 10 : 130;                 // room for the side arrows
+    var padY = small ? 8 : 34;
+    var portrait = vw <= 760 && vh > vw;
+    if (portrait) padY = 70;                     // room for the rotate hint
+    var cols = m === 'spread' ? 2 : 1;
+    var availW = vw - padX * 2, availH = vh - bar - foot - padY * 2;
+    var w = Math.floor(Math.min(availW / cols, availH * RATIO));
+    w = Math.max(w, 200);
+    return { w: w, h: Math.round(w / RATIO), cols: cols };
+  }
+
+  function makePage(i) {
+    var d = document.createElement('div');
+    d.className = 'page';
+    if (i === 0 || i === N - 1) d.setAttribute('data-density', 'hard');
+    var img = document.createElement('img');
+    img.src = srcs[i];
+    img.alt = i === N - 1 ? 'Back cover' : 'Page ' + (i + 1);
+    img.decoding = 'async';
+    img.draggable = false;
+    d.appendChild(img);
+    return d;
+  }
+
+  function build(startPage) {
+    var m = (mode === 'spread' && spreadAllowed()) ? 'spread' : 'single';
+    var s = size(m);
+    if (pf) { try { pf.destroy(); } catch (e) {} pf = null; }
+    bookEl = document.createElement('div');
+    bookEl.className = 'book';
+    bookEl.style.width = (s.w * s.cols) + 'px';
+    bookEl.style.height = s.h + 'px';
+    wrap.insertBefore(bookEl, spine);
+    var pages = [];
+    for (var i = 0; i < N; i++) { var p = makePage(i); bookEl.appendChild(p); pages.push(p); }
+    pf = new St.PageFlip(bookEl, {
+      width: s.w, height: s.h, size: 'fixed',
+      showCover: true, usePortrait: m === 'single', autoSize: true,
+      drawShadow: true, maxShadowOpacity: 0.55,
+      flippingTime: reduced ? 250 : 950,
+      useMouseEvents: false, mobileScrollSupport: false,
+      startPage: startPage, startZIndex: 1
+    });
+    pf.loadFromHTML(pages);
+    pf.on('flip', function (e) { current = e.data; update(true); });
+    pf.on('changeState', function (e) { flipping = e.data !== 'read'; });
+    built = { w: s.w, h: s.h, mode: m };
+    wrap.style.width = (s.w * s.cols) + 'px';
+    wrap.style.height = s.h + 'px';
+    spine.className = 'spine ' + m;
+    current = pf.getCurrentPageIndex();
+    update(false);
+    var showViewBtn = spreadAllowed();
+    btnView.hidden = !showViewBtn;
+    var label = m === 'spread' ? 'Single page view' : 'Open book view';
+    btnView.setAttribute('aria-label', label); btnView.title = label;
+  }
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  function update(fromFlip) {
+    var spreadNow = built.mode === 'spread';
+    var label;
+    if (spreadNow && current > 0 && current < N - 1) label = pad(current + 1) + '–' + pad(current + 2);
+    else label = pad(current + 1);
+    curEl.textContent = label;
+    var seen = spreadNow && current > 0 && current < N - 1 ? current + 2 : current + 1;
+    barEl.style.width = (seen / N * 100) + '%';
+    btnPrev.disabled = current <= 0;
+    btnNext.disabled = current >= N - 1;
+    // page-stack thickness on each side
+    var left = current, right = N - 1 - current;
+    var maxT = Math.max(3, Math.round(built.w * 0.007));
+    edgeL.style.width = (left > 0 ? Math.max(1, Math.round(maxT * left / (N - 1))) : 0) + 'px';
+    edgeR.style.width = (right > 0 ? Math.max(1, Math.round(maxT * right / (N - 1))) : 0) + 'px';
+    spine.hidden = (built.mode === 'single' && current === 0) || (built.mode === 'spread' && (current === 0 || current === N - 1));
+    if (history.replaceState) history.replaceState(null, '', '#' + (current + 1));
+    live.textContent = (current === N - 1 ? 'Back cover' : 'Page ' + (current + 1)) + ' of ' + N;
+    var items = document.querySelectorAll('#thumbs li');
+    for (var i = 0; i < items.length; i++) items[i].classList.toggle('current', i === current || (spreadNow && current > 0 && i === current + 1));
+    if (fromFlip) hintEl.classList.add('gone');
+  }
+
+  function next() { if (!pf || flipping) return; if (current >= N - 1) return; pf.flipNext('bottom'); }
+  function prev() { if (!pf || flipping) return; if (current <= 0) return; pf.flipPrev('bottom'); }
+  function go(i) { if (!pf) return; pf.turnToPage(i); current = pf.getCurrentPageIndex(); update(true); }
+
+  // click / tap / swipe on the book
+  var down = null;
+  stage.addEventListener('pointerdown', function (e) {
+    if (e.button !== undefined && e.button !== 0) return;
+    down = { x: e.clientX, y: e.clientY, t: Date.now() };
+  });
+  stage.addEventListener('pointerup', function (e) {
+    if (!down) return;
+    var dx = e.clientX - down.x, dy = e.clientY - down.y; var d0 = down; down = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) next(); else prev(); return; }
+    if (Math.abs(dx) > 10 || Math.abs(dy) > 10 || Date.now() - d0.t > 800) return;
+    var r = wrap.getBoundingClientRect();
+    if (e.clientX < r.left - 20 || e.clientX > r.right + 20 || e.clientY < r.top - 20 || e.clientY > r.bottom + 20) return;
+    var split = built.mode === 'spread' ? r.left + r.width / 2 : r.left + r.width * 0.25;
+    if (e.clientX < split) prev(); else next();
+  });
+  stage.addEventListener('pointercancel', function () { down = null; });
+  btnPrev.addEventListener('click', prev);
+  btnNext.addEventListener('click', next);
+
+  document.addEventListener('keydown', function (e) {
+    if (grid.classList.contains('open')) { if (e.key === 'Escape') closeGrid(); return; }
+    if (e.target && (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') && (e.key === ' ' || e.key === 'Enter')) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') { e.preventDefault(); go(0); }
+    else if (e.key === 'End') { e.preventDefault(); go(N - 1); }
+    else if (e.key === 'f' || e.key === 'F') { toggleFull(); }
+    else if (e.key === 'g' || e.key === 'G') { openGrid(); }
+  });
+
+  // view toggle (desktop)
+  btnView.addEventListener('click', function () {
+    mode = built.mode === 'spread' ? 'single' : 'spread';
+    store('designo-view', mode);
+    build(current);
+  });
+
+  // full screen
+  var fsOK = !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen);
+  btnFull.hidden = !fsOK;
+  function toggleFull() {
+    if (!fsOK) return;
+    var d = document, el = d.documentElement;
+    if (d.fullscreenElement || d.webkitFullscreenElement) (d.exitFullscreen || d.webkitExitFullscreen).call(d);
+    else (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+  }
+  btnFull.addEventListener('click', toggleFull);
+
+  // page grid
+  var thumbs = document.getElementById('thumbs');
+  for (var t = 0; t < N; t++) (function (i) {
+    var li = document.createElement('li');
+    var b = document.createElement('button'); b.type = 'button';
+    b.setAttribute('aria-label', i === N - 1 ? 'Go to back cover' : 'Go to page ' + (i + 1));
+    var im = document.createElement('img'); im.loading = 'lazy'; im.alt = '';
+    im.src = 'thumbs/' + pad(i + 1) + '.webp';
+    var sp = document.createElement('span'); sp.textContent = i === 0 ? 'Cover' : i === N - 1 ? 'Back cover' : pad(i + 1);
+    b.appendChild(im); b.appendChild(sp); li.appendChild(b); thumbs.appendChild(li);
+    b.addEventListener('click', function () { closeGrid(); go(i); });
+  })(t);
+  var lastFocus = null;
+  function openGrid() { lastFocus = document.activeElement; grid.classList.add('open'); grid.setAttribute('aria-hidden', 'false'); update(false); document.getElementById('btnClose').focus(); }
+  function closeGrid() { grid.classList.remove('open'); grid.setAttribute('aria-hidden', 'true'); if (lastFocus) lastFocus.focus(); }
+  document.getElementById('btnGrid').addEventListener('click', openGrid);
+  document.getElementById('btnClose').addEventListener('click', closeGrid);
+
+  // rotate hint position (phones held upright)
+  function placeRotate() {
+    var r = wrap.getBoundingClientRect();
+    rotateEl.style.top = Math.round(r.bottom + 26) + 'px';
+  }
+
+  // resize: rebuild only when the size really changes
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () {
+      var m = (mode === 'spread' && spreadAllowed()) ? 'spread' : 'single';
+      var s = size(m);
+      if (Math.abs(s.w - built.w) > 2 || m !== built.mode) build(current);
+      placeRotate();
+    }, 160);
+  });
+  window.addEventListener('hashchange', function () { var i = pageFromHash(); if (i !== current) go(i); });
+
+  // loader: wait for the opening pages, then fetch the rest in the background
+  var loadbar = document.getElementById('loadbar');
+  var first = [0, 1, 2], done = 0;
+  function finish() {
+    document.getElementById('loader').classList.add('done');
+  }
+  first.forEach(function (i) {
+    var im = new Image();
+    im.onload = im.onerror = function () { done++; loadbar.style.width = (done / first.length * 100) + '%'; if (done === first.length) setTimeout(finish, 350); };
+    im.src = srcs[i];
+  });
+  setTimeout(finish, 6000);
+
+  build(pageFromHash());
+  placeRotate();
+})();
+</script>
+</body>
+</html>
